@@ -6,13 +6,12 @@
 \usepackage{amsmath, amsthm, amssymb, amsfonts}
 \usepackage{multicol}
 \usepackage{multirow}
-\usepackage{fancyvrb}
-\fvset{fontsize=\normalsize}
+%\usepackage{fancyvrb}
+%\fvset{fontsize=\normalsize}
 \usepackage[inline]{enumitem}
 
-
 \usepackage[newfloat]{minted}
-\setminted{bgcolor=LightGray,fontsize=\footnotesize,frame=leftline,linenos}
+\setminted{bgcolor=lightgray,fontsize=\footnotesize,frame=leftline,linenos}
 
 \usepackage[T1]{fontenc}
 \usepackage[boldsans]{ccfonts}
@@ -35,7 +34,26 @@
   \titlepage%
 \end{frame}
 
-\begin{frame}{Hello World}
+\begin{frame}[fragile]{Hello World}
+  %\begin{multicols}{2}
+\begin{minted}{c}
+// Includes the code from the standard (std for short)
+// library needed to do input and output (io).
+#include <stdio.h>
+
+// The main function.
+// In C, the main function returns an error code, which
+// is an int. 0 means 'no error'.
+int main() {
+
+  // printf prints its argument to the terminal
+  printf("Hello, world!\n");
+
+  return 0;
+}
+\end{minted}
+
+  %\end{multicols}
 
 \end{frame}
 
