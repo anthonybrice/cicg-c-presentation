@@ -16,7 +16,7 @@ int main(int argc, char** argv)
 	int n;
 	
 	printf("What character do you want to print?\n> ");
-	scanf("%c", &c); //scanf is short for fscanf(stdin, ...);
+	scanf(" %c", &c); //scanf is short for fscanf(stdin, ...);
 	
 	printf("\nAnd how many times do you want to print it?\n> ");
 	scanf("%d", &n);
@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 	//(That the compiler could find, anyway).
 	
 	print_n(c, n);
-	print_n("\n", 1); //parameters can be literal values
+	print_n('\n', 1); //parameters can be literal values
 	
 	return 0;
 }
@@ -51,6 +51,6 @@ void print_n(char c, int n)
 	int i;
 	for(i = 0; i < n; i++) {
 		//'putchar' prints a single character to the terminal
-		putchar(n);
+		putchar(c);
 	}
 }

@@ -42,7 +42,7 @@ typedef struct int_array IArray;
 IArray IArray_new(int length);
 void IArray_delete(IArray* arr);
 
-void IArray_print(IArray arr);
+void IArray_print(IArray* arr);
 
 int main()
 {
@@ -59,7 +59,7 @@ int main()
 	
 	printf("\nSo, you entered\n\t");
 	IArray_print(&array);
-	
+	printf("\n");
 	
 	//Unlike Java and Python, objects don't get deleted
 	//automatically- don't forget to put back the memory
