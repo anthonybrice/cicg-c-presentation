@@ -53,7 +53,9 @@ struct List* list_append(struct List* list, void* data) {
 int main(void) {
   struct List* list = NULL;
 
-  list = list_prepend(list, "This is my data.\0");
+  list = list_prepend(list, "This is my data.");
 
-  printf("%s", list->data);
+  list = list_append(list, "Some more data.");
+
+  printf("%s\n%s\n", list->data, list->next->data);
 }
