@@ -59,6 +59,9 @@ int main()
 Spaceship make_ship(const char* name, int weapons)
 {
 	Spaceship ship;
+	
+	//strlen is short for STRing LENgth- it just
+	//finds out how long your string is
 	ship.name = malloc(strlen(name) + 1);
 	strcpy(ship.name, name);
 	
@@ -118,7 +121,7 @@ void attack_ship(Spaceship* firing, Spaceship* target)
 //	   the status at each step
 //
 //	2) Stop at the first weapon status >= 100 (it's at max
-//	   capacity and has to be fired, idk)
+//	   capacity and has to be fired)
 //
 //	(Tell them about rand() if they ask- it's used in
 //	 testing code for Comp 362)
