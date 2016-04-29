@@ -12,6 +12,9 @@
 
 \usepackage[newfloat]{minted}
 \setminted{bgcolor=lightgray,fontsize=\footnotesize,frame=leftline,linenos}
+% \newmintinline[cinline]{c}{fontsize=\normalsize}
+% \newmintinline[shinline]{sh}{fontsize=\normalsize,fgcolor=black}
+\setmintedinline{bgcolor=lightgray,fontsize=\normalsize}
 
 \usepackage[T1]{fontenc}
 \usepackage[boldsans]{ccfonts}
@@ -22,7 +25,11 @@
 \usepackage{inconsolata}
 \setbeamertemplate{navigation symbols}{}
 
-\renewcommand{\theFancyVerbLine}{\ttfamily {\scriptsize \arabic{FancyVerbLine}}}
+\renewcommand{\theFancyVerbLine}{\ttfamily {\footnotesize \arabic{FancyVerbLine}}}
+
+\usepackage{enumitem}
+\setlist[itemize,1]{label={\fontfamily{cmr}\fontencoding{T1}\selectfont\textbullet}}
+\setlist[itemize,2]{label={\fontfamily{cmr}\fontencoding{T1}\selectfont\textopenbullet}}
 
 \mode<presentation>{}
 
@@ -34,22 +41,52 @@
   \titlepage%
 \end{frame}
 
-\begin{frame}[fragile]{Hello World}
+\begin{frame}[fragile]
+  \frametitle{Hello World}
 
 \begin{minted}{c}
-// Includes the code from the standard (std for short)
-// library needed to do input and output (io).
 #include <stdio.h>
 
-// The main function.
-// In C, the main function returns an error code, which
-// is an int. 0 means 'no error'.
-int main() {
-  // printf prints its argument to the terminal.
+main() {
   printf("Hello, world!\n");
-
-  return 0;
 }
+\end{minted}
+\\
+  \begin{itemize}
+  \item A C program consists of \textit{functions} and \textit{variables}.
+    \pause
+  \item A function contains \textit{statements} that specify the
+    computing operations to be done.
+    \pause
+  \item Variables store values to be used during computation.
+    \pause
+  \item Normally you can name functions whatever you like, but every program
+    must contain a function named \mintinline{text}{main}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Hello World}
+
+\begin{minted}{c}
+#include <stdio.h>
+
+main() {
+  printf("Hello, world!\n");
+}
+\end{minted}
+\\
+  \begin{itemize}
+  \item Copy the code above into an empty file \mintinline{text}{hello.c} in your
+    \mintinline{text}{task1} directory (We'll help you find it.), and then from your
+    terminal:
+    \pause
+  \end{itemize}
+\bigskip
+\begin{minted}[linenos=false]{text}
+# cd ~/Desktop/bootcamp/task1
+# gcc hello.c
+# ./a.out
 \end{minted}
 
 \end{frame}
