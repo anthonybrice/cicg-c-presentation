@@ -1,9 +1,8 @@
 // prompt.c
 
 #include <stdio.h>
-#include <stdlib.h>
 
-int main(int argc, char* argv[]) {
+main() {
   char name[40];
   printf("Enter your name:\n");
 
@@ -11,6 +10,4 @@ int main(int argc, char* argv[]) {
 
   scanf("%s", name);
   printf("Hello, %s\n", name);
-
-  return 0;
 }

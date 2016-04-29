@@ -6,7 +6,7 @@
 int main(int argc, char* argv[]) {
   if (argc < 3) {
     printf("Usage: %s <name> <integer>\n", argv[0]);
-    return -1;
+    exit(-1);
   }
 
   // YOUR TASK: Read the user's name from command line arguments and print it.

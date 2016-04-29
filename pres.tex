@@ -11,7 +11,7 @@
 \usepackage[inline]{enumitem}
 
 \usepackage[newfloat]{minted}
-\setminted{bgcolor=lightgray,fontsize=\footnotesize,frame=leftline,linenos}
+\setminted{bgcolor=lightgray,fontsize=\normalsize,frame=leftline,linenos}
 % \newmintinline[cinline]{c}{fontsize=\normalsize}
 % \newmintinline[shinline]{sh}{fontsize=\normalsize,fgcolor=black}
 \setmintedinline{bgcolor=lightgray,fontsize=\normalsize}
@@ -77,6 +77,9 @@ main() {
 \end{minted}
 \\
   \begin{itemize}
+  \item In this example \mintinline{c}{printf} is a function that takes a
+    \textit{character string} as its argument.
+    \pause
   \item Copy the code above into an empty file \mintinline{text}{hello.c} in your
     \mintinline{text}{task1} directory (We'll help you find it.), and then from your
     terminal:
@@ -91,29 +94,244 @@ main() {
 
 \end{frame}
 
-\begin{frame}
-\frametitle{Prompts}
+\begin{frame}[fragile]
+  \frametitle{Prompts}
+
+  From your terminal,
+\begin{minted}[linenos=false]{text}
+# cd ../task2
+\end{minted}
+\\
+then open the file \mintinline{text}{prompt.c} in your text editor. You should
+see the following:
+
+\pause
+
+\bigskip
+
+\begin{minted}[fontsize=\footnotesize]{c}
+#include <stdio.h>
+
+main() {
+  char name[40];
+  printf("Enter your name:\n");
+
+  // YOUR TASK: Prompt the user for their name say hello.
+
+}
+\end{minted}
 
 \end{frame}
 
-\begin{frame}[fragile]{Arguments}
+\begin{frame}[fragile]
+  \frametitle{Prompts}
 
-\begin{minted}{c}
+\begin{minted}[fontsize=\footnotesize]{c}
 #include <stdio.h>
 
-int main(int argc, char** argv)
-{
-  // argc is always at least 1, because
-  // the first argument value is the program name
-  if (argc < 2) {
-    fprintf(stderr, "Usage: %s <name>\n", argv[0]);
+main() {
+  char name[40];
+  printf("Enter your name:\n");
+
+  // YOUR TASK: Prompt the user for their name say hello.
+
+}
+\end{minted}
+
+  \begin{itemize}
+  \item For this task, we'll make use of a new function
+\begin{minted}[linenos=false,bgcolor=lightgray,frame=none]{c}
+scanf(char* format, ...)
+\end{minted}
+    \pause
+  \item \mintinline{c}{scanf} reads characters from your terminal, interprets them
+    according to the \mintinline{text}{format} you provide (consult your cheatsheet), and stores the
+    results in the remaining arguments.
+    \pause
+  \item For example, to store a user-given string in \mintinline{text}{name},
+\begin{minted}[linenos=false,frame=none]{c}
+scanf("%s", name);
+\end{minted}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Prompts}
+\begin{minted}[fontsize=\footnotesize]{c}
+#include <stdio.h>
+
+main() {
+  char name[40];
+  printf("Enter your name:\n");
+
+  // YOUR TASK: Prompt the user for their name say hello.
+
+}
+\end{minted}
+  \begin{itemize}
+  \item For example, to store a user-given string in \mintinline{text}{name},
+\begin{minted}[linenos=false,frame=none]{c}
+scanf("%s", name);
+\end{minted}
+  \item Similarly, \mintinline{c}{printf} can be given format specifiers in its
+    first argument and will print the rest of its arguments accordingly.
+\begin{minted}[linenos=false,frame=none]{c}
+printf("Goodbye %s", name);
+\end{minted}
+    \pause
+  \item Complete your task (Ask for your help if you're stuck!), and run your program.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Arguments}
+  From your terminal,
+\begin{minted}[linenos=false]{text}
+# cd ../task3
+\end{minted}
+\\
+  then open the file \mintinline{text}{arguments.c} in your text editor. You
+  should see the following:
+  \pause
+\begin{minted}[fontsize=\footnotesize]{c}
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char* argv[]) {
+  if (argc < 3) {
+    printf("Usage: %s <name> <integer>\n", argv[0]);
     return -1;
   }
 
-  fprintf(stdout, "Hello, %s!\n", argv[1]);
-  return 0;
+  // YOUR TASK: Read the user's name and an integer
+  // from command line arguments, then say hello
+  // to the user as many times as given by the integer.
+
 }
 \end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Arguments}
+
+\begin{minted}{c}
+int main(int argc, char* argv[]) {
+  ...
+}
+\end{minted}
+
+  \begin{itemize}
+  \item Note that our \mintinline{c}{main} has grown a little.
+    \pause
+  \item The first \mintinline{c}{int} tells us that this function will return
+    an integer.
+    \pause
+  \item \mintinline{c}{int argc} and \mintinline{c}{char* argv[]} are
+    parameters to \mintinline{c}{main}.
+    \pause
+    \begin{itemize}
+    \item \mintinline{c}{char* argv[]} is an array of strings containing all the
+      arguments we'll pass when we run our program. (More on that later.)
+      \pause
+    \item \mintinline{c}{int argc} is an integer indicating the length of
+      \mintinline{c}{argv} or the number of strings contained within.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Arguments}
+\begin{minted}{c}
+int main(int argc, char* argv[]) {
+  ...
+}
+\end{minted}
+
+  \bigskip
+
+  For example, if we invoke our program as follows:
+\begin{minted}[linenos=false]{text}
+# ./a.out CiComputerGirls 5
+\end{minted}
+
+  \pause
+
+  \bigskip
+
+  \begin{itemize}
+  \item Then \mintinline{c}{argc} contains the integer 3.
+    \pause
+  \item \mintinline{c}{argv[0]} contains the string \mintinline{c}{"a.out"}.
+    \pause
+  \item \mintinline{c}{argv[1]} contains the string \mintinline{c}{"CiComputerGirls"}.
+    \pause
+  \item \mintinline{c}{argv[2]} contains the string \mintinline{c}{"5"}.
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Arguments}
+
+\begin{minted}[fontsize=\footnotesize]{c}
+int main(int argc, char* argv[]) {
+  if (argc < 3) {
+    printf("Usage: %s <name> <integer>\n", argv[0]);
+    exit(-1);
+  }
+  ...
+}
+\end{minted}
+
+  \begin{itemize}
+  \item In the given code, we examine \mintinline{c}{argc} in the condition of
+    our if-statement to ensure our program was passed the correct number of
+    arguments.
+    \pause
+  \item And if not, we print a helpful message and exit with an error code.
+    \pause
+  \item Note that our helpful message prints the value of
+    \mintinline{c}{argv[0]}. The first string in \mintinline{c}{argv} will always
+    be the name of your program.
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Arguments}
+\begin{minted}[fontsize=\footnotesize]{c}
+int main(int argc, char* argv[]) {
+  ...
+
+  // YOUR TASK: Read the user's name and an integer
+  // from command line arguments, then say hello
+  // to the user as many times as given by the integer.
+
+}
+
+\end{minted}
+
+\bigskip
+
+To complete your task,
+
+  \begin{itemize}
+  \item Use the function \mintinline{c}{atoi} to convert the value of
+    \mintinline{c}{argv[2]} into an \mintinline{c}{int}.
+\begin{minted}[frame=none,linenos=false]{c}
+int atoi(char* s)
+\end{minted}
+    \pause
+  \item \mintinline{c}{atoi} converts the string \mintinline{c}{s} into an
+    \mintinline{c}{int}. For example,
+\begin{minted}[frame=none,linenos=false]{c}
+int five = atoi("5");
+\end{minted}
+    \pause
+  \item Then use a for- or while-loop to print your message as many times as needed.
+  \end{itemize}
 
 \end{frame}
 
