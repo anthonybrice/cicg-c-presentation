@@ -335,7 +335,196 @@ int five = atoi("5");
 
 \end{frame}
 
-\begin{frame}{Pointers}
+\begin{frame}[fragile]
+  \frametitle{Pointers}
+
+  Now \mintinline{text}{cd} into the \mintinline{text}{task3} directory and
+  open \mintinline{text}{pointers.c} in your text editor.
+
+  \pause
+
+  \bigskip
+
+\begin{minted}[fontsize=\footnotesize]{c}
+#include <stdio.h>
+
+main() {
+  char* string1 = "This is the first string.";
+  char* string2 = "This is the second string.";
+
+  // YOUR TASK: Write a function `swap` that swaps the pointers
+  // in its first and second arguments. Then invoke your function
+  // with string1 and string2.
+
+  printf("string1 = %s and string2 = %s\n", string1, string2);
+}
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pointers}
+
+\begin{minted}[fontsize=\footnotesize]{c}
+main() {
+  char *string1 = "This is the first string.";
+  ...
+}
+\end{minted}
+
+  \bigskip
+
+  \begin{itemize}
+  \item A \textit{pointer} is a variable that contains the address in memory of
+    another variable. \pause
+  \item C has two operators for dealing with pointers: \pause
+    \begin{itemize}
+    \item \mintinline{c}{*} is the \textit{dereferencing} operator. When applied
+      to a pointer, it returns the value to which the pointer points. \pause
+    \item \mintinline{c}{&} does the opposite of \mintinline{c}{*}. When applied
+      to a variable, it returns the address at which the variable is stored.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pointers}
+
+\begin{minted}[fontsize=\footnotesize]{c}
+main() {
+  char *string1 = "This is the first string.";
+  ...
+}
+\end{minted}
+
+  \begin{itemize}
+  \item Note that the above code declares \mintinline{c}{string1} to be a
+    pointer. It states that \mintinline{c}{string1} points to the location in
+    memory of the beginning of the assigned string. \pause
+  \item Now note that \mintinline{c}{*string1} is a \mintinline{c}{char}. The
+    \mintinline{c}{*} applies the dereferencing operator to
+    \mintinline{c}{string1}, returning the first value at the location to which
+    pointer points. In this case, \mintinline{c}{'T'}.
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pointers}
+
+
+  To write your swap function, you must be aware of one more caveat:
+  \begin{itemize}
+  \item As in most languages, C passes arguments to functions by value, so there
+    is no way for a called function to alter a variable in the calling function.
+    \pause
+  \item Consider a function \mintinline{c}{swap} for swapping two integers:
+  \end{itemize}
+
+\begin{minted}[fontsize=\footnotesize]{c}
+void swap(int x, int y) { /* WRONG */
+  int temp;
+
+  temp = x;
+  x = y;
+  y = temp;
+}
+\end{minted}
+\pause
+  \begin{itemize}
+  \item Just like Java, this function will not work as intended. \pause
+  \item \mintinline{c}{x} and \mintinline{c}{y} are swapped within the scope of our
+    function \mintinline{c}{swap}, but since they were passed only by value to
+    the function, they will not be swapped in any code that calls our \mintinline{c}{swap}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,fragile]
+  \frametitle{Pointers}
+
+  To obtain the desired effect, instead of writing a function that takes the
+  values of the variables to be swapped, we write a function that takes the
+  pointers to their values in memory:
+
+\pause
+
+\bigskip
+
+\begin{minted}[fontsize=\footnotesize]{c}
+void swap(int *px, int *py) {
+  int temp;
+
+  temp = *px;   // temp gets the value to which px points.
+  *px = *py;    // The value at px gets the value at py.
+  *py = temp;   // The value to which py points gets temp.
+}
+\end{minted}
+
+\pause
+
+\bigskip
+
+We can invoke this \mintinline{c}{swap} like so:
+
+\bigskip
+
+\begin{minted}[fontsize=\footnotesize]{c}
+int a = 5;
+int b = 10;
+swap(&a, &b);
+// Now a == 10, and b == 5.
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pointers}
+
+\begin{minted}[fontsize=\footnotesize]{c}
+void swap(int *px, int *py) {
+  int temp;
+
+  temp = *px;   // temp gets the value to which px points.
+  *px = *py;    // The value at px gets the value at py.
+  *py = temp;   // The value to which py points gets temp.
+}
+
+int a = 5;
+int b = 10;
+swap(&a, &b);
+// Now a == 10, and b == 5.
+\end{minted}
+
+  \begin{itemize}
+  \item Note that to swap two \mintinline{c}{int} our function accepts two
+    \mintinline{c}{int*}. \pause
+  \item We use \mintinline{c}{&} to access the address at which our
+    values are stored. In other words, to access \textit{pointers} to our
+    variables \mintinline{c}{a} and \mintinline{c}{b}.
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pointers}
+
+\begin{minted}[fontsize=\footnotesize]{c}
+main() {
+  char* string1 = "This is the first string.";
+  char* string2 = "This is the second string.";
+
+  // YOUR TASK: Write a function `swap` that swaps the pointers
+  // in its first and second arguments. Then invoke your function
+  // with string1 and string2.
+
+  printf("string1 = %s and string2 = %s\n", string1, string2);
+}
+\end{minted}
+
+  \begin{itemize}
+  \item Since a string is already a pointer to a \mintinline{c}{char} (or a \mintinline{c}{char*}), your
+    \mintinline{c}{swap} should take two pointers to \mintinline{c}{char} pointers (or two
+    \mintinline{c}{char**}). \pause
+  \end{itemize}
 
 \end{frame}
 

@@ -1,10 +1,8 @@
 // pointers.c
 
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 
-void swap(char** first, char** second) {
+swap(char** first, char** second) {
   char* temp;
 
   temp = *first;
