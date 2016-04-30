@@ -696,8 +696,8 @@ typedef struct {
 \bigskip
 
 \begin{minted}{c}
-Spaceship our_ship = ...
-printf("The name of our ship is %s", our_ship.name);
+Spaceship starship = ...
+printf("The name of our ship is %s", starship.name);
 \end{minted}
 \pause
 
@@ -711,8 +711,8 @@ pointer, use the \mintinline[escapeinside=||]{c}{|\strut|->} operator.
 \bigskip
 
 \begin{minted}{c}
-Spaceship* our_ship = ...
-printf("The name of our ship is %s", our_ship->name);
+Spaceship *ship = ...
+printf("The name of our ship is %s", ship->name);
 \end{minted}
 
 \end{frame}
@@ -744,6 +744,65 @@ void attack_ship(Spaceship* from, Spaceship* to);
     element you apply an index like so: \mintinline{c}{ship->weapon_statuses[0]}.
   \end{itemize}
 
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Headers}
+
+  Now \mintinline{text}{cd} into the \mintinline{text}{task7} directory and
+  open \mintinline{text}{headers.c} in your text editor. \pause
+
+  You'll find an incomplete implementation of a linked-list struct.
+
+\bigskip
+
+\begin{minted}[fontsize=\footnotesize]{c}
+// headers.c
+
+// YOUR TASK: Write a header file for the linked-list
+// implementation below, exposing list_append(), list_prepend(),
+// and the struct itself.
+
+#include "headers.h"
+
+struct List {
+  void* data;
+  struct List* next;
+};
+
+...
+\end{minted}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Headers}
+
+  \begin{itemize}
+  \item Think of header files as the public documentation of any program or
+    library you write. \pause
+  \item I.e., declarations for any functions we would consider ``public'' in an
+    OOP language go in our header file. Declarations of functions we would
+    consider ``private'' can remain in our source file. \pause
+  \item Anyone using the provided linked-list library would probably want the
+    ability to declare instances of \mintinline{c}{struct List} and append and
+    prepend to it, so we declare those in the header.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Further Work}
+
+  If you'd like to continue your studies, please consider:
+
+  \begin{itemize}
+  \item Procuring a copy of \emph{The C Programming Language} by Kernighan and
+    Ritchie. \pause
+  \item Visiting the C tutorials on Lynda.com, free to all students at CSUCI.
+    \pause
+  \item Familiarizing yourself with the command line through online courses such
+    as those at Codecademy.com.
+  \end{itemize}
 \end{frame}
 
 \end{document}
