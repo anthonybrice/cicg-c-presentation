@@ -1,5 +1,7 @@
 \documentclass[pdf]{beamer}
 
+\setbeamertemplate{caption}[numbered]
+
 \usepackage{newfloat}
 
 \usepackage{graphicx}
@@ -44,25 +46,38 @@
 \begin{frame}[fragile]
   \frametitle{Hello World}
 
-\begin{minted}{c}
-#include <stdio.h>
+% \begin{minted}{c}
+% #include <stdio.h>
 
-main() {
-  printf("Hello, world!\n");
-}
-\end{minted}
+% main() {
+%   printf("Hello, world!\n");
+% }
+% \end{minted}
+
+  \begin{columns}[c]
+    \column{.4\textwidth}
+    \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth,keepaspectratio]{kandr}
+      \caption{The bible.}
+    \end{figure}
+    \column{.6\textwidth}
+    \begin{itemize}
+    \item A C program consists of \textit{functions} and \textit{variables}.
+      \pause
+    \item A function contains \textit{statements} that specify the
+      computing operations to be done.
+      \pause
+    \item Variables store values to be used during computation.
+      \pause
+    \item Normally you can name functions whatever you like, but every program
+      must contain a function named \mintinline{text}{main}.
+    \end{itemize}
+  \end{columns}
+
+
 \\
-  \begin{itemize}
-  \item A C program consists of \textit{functions} and \textit{variables}.
-    \pause
-  \item A function contains \textit{statements} that specify the
-    computing operations to be done.
-    \pause
-  \item Variables store values to be used during computation.
-    \pause
-  \item Normally you can name functions whatever you like, but every program
-    must contain a function named \mintinline{text}{main}.
-  \end{itemize}
+
 \end{frame}
 
 \begin{frame}[fragile]
@@ -335,10 +350,102 @@ int five = atoi("5");
 
 \end{frame}
 
+\begin{frame}[fragile,fragile]
+  \frametitle{Functions}
+
+  From your terminal,
+\begin{minted}[linenos=false]{text}
+# cd ../task4
+\end{minted}
+  \\
+  and open the file \mintinline{text}{functions.c} in your text editor.
+  \pause
+
+  \bigskip
+
+\begin{minted}[fontsize=\footnotesize]{c}
+#include <math.h>
+#include <stdio.h>
+
+// YOUR TASK: Implement the function get_population.
+
+int get_population(int generation);
+
+main() {
+  ...
+}
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Functions}
+
+  Each function definition has the form
+  \bigskip
+
+\begin{minted}[fontshape=it,fontfamily=lmtt,linenos=false]{text}
+return-type function-name(argument declarations) {
+  declarations and statements
+}
+\end{minted}
+
+  \pause
+
+  \bigskip
+
+  Compare the above with our definition of the function \mintinline{c}{power} in
+  \mintinline{text}{functions.c}. \pause
+
+  \bigskip
+
+\begin{minted}[fontsize=\footnotesize]{c}
+int power(int base, int exp) {
+  int result = 1;
+
+  int i;
+  for (i = 0; i < exp; i++)
+    result *= base;
+
+  return result;
+}
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Functions}
+
+\begin{minted}[linenos=false]{c}
+int get_population(int generation);
+\end{minted}
+
+  \bigskip
+
+  \begin{itemize}
+  \item Your implementation of \mintinline{c}{get_population} should conform to
+    the specifications in the above declaration. \pause
+    \begin{itemize}
+    \item I.e., it should accept a single \mintinline{c}{int} as an argument and
+      return an \mintinline{c}{int} to its caller. \pause
+    \end{itemize}
+  \item The rate at which your population grows is left up to you, but note that to
+    work with our program shell, \mintinline{c}{get_population} should only
+    increase with respect to its argument. \pause
+    \begin{itemize}
+    \item For a simple implementation consider that if each tribble can breed
+      $2$ more tribbles, then after $3$ generations you have $2^3 = 8$ tribbles.
+      \pause
+    \item You can call \mintinline{c}{power} from within
+      \mintinline{c}{get_population} to model this relationship.
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
 \begin{frame}[fragile]
   \frametitle{Pointers}
 
-  Now \mintinline{text}{cd} into the \mintinline{text}{task3} directory and
+  Now \mintinline{text}{cd} into the \mintinline{text}{task5} directory and
   open \mintinline{text}{pointers.c} in your text editor.
 
   \pause
@@ -349,8 +456,8 @@ int five = atoi("5");
 #include <stdio.h>
 
 main() {
-  char* string1 = "This is the first string.";
-  char* string2 = "This is the second string.";
+  char *string1 = "This is the first string.";
+  char *string2 = "This is the second string.";
 
   // YOUR TASK: Write a function `swap` that swaps the pointers
   // in its first and second arguments. Then invoke your function
@@ -418,11 +525,12 @@ main() {
   \item As in most languages, C passes arguments to functions by value, so there
     is no way for a called function to alter a variable in the calling function.
     \pause
-  \item Consider a function \mintinline{c}{swap} for swapping two integers:
+  \item Consider this function \mintinline{c}{swap} for swapping two integers:
   \end{itemize}
 
 \begin{minted}[fontsize=\footnotesize]{c}
-void swap(int x, int y) { /* WRONG */
+// WRONG!
+void swap(int x, int y) {
   int temp;
 
   temp = x;
@@ -521,22 +629,121 @@ main() {
 \end{minted}
 
   \begin{itemize}
-  \item Since a string is already a pointer to a \mintinline{c}{char} (or a \mintinline{c}{char*}), your
-    \mintinline{c}{swap} should take two pointers to \mintinline{c}{char} pointers (or two
-    \mintinline{c}{char**}). \pause
+  \item Since a string is already a pointer to a \mintinline{c}{char} (or a
+    \mintinline{c}{char*}), your \mintinline{c}{swap} should take two pointers
+    to \mintinline{c}{char} pointers (or two \mintinline{c}{char**}). \pause
+  \item Implement \mintinline{c}{swap} and test your program. (And ask for help if
+    you're stuck!)
   \end{itemize}
 
 \end{frame}
 
-\begin{frame}{Arrays}
+\begin{frame}[fragile]
+  \frametitle{Structs}
+
+  Now \mintinline{text}{cd} into the \mintinline{text}{task6} directory and
+  open \mintinline{text}{structs.c} in your text editor. \pause
+
+\bigskip
+
+\begin{minted}[fontsize=\footnotesize]{c}
+typedef struct {
+  char* name;
+  int health;
+  int* weapon_statuses; // An array whose elements indicate the
+                        // status of each weapon.
+                        // A value >= 100 indicates the weapon is
+                        // ready to fire.
+  int num_weapons;
+} Spaceship;
+
+// YOUR TASK: Implement charge_weapons and attack_ship.
+void charge_weapons(Spaceship* ship);
+void attack_ship(Spaceship* from, Spaceship* to);
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Structs}
+
+  \begin{columns}[c]
+    \column{.4\textwidth}
+\begin{minted}[fontsize=\footnotesize]{c}
+typedef struct {
+  char* name;
+  int health;
+  int* weapon_statuses;
+  int num_weapons;
+} Spaceship;
+\end{minted}
+    \column{.6\textwidth}
+    \begin{itemize}
+    \item A struct is simply a collection of one or more variables, grouped
+      together under a single name. \pause
+    \item As defined, our \mintinline{c}{Spaceship} struct contains the variables
+      \mintinline{c}{name}, \mintinline{c}{health},
+      \mintinline{c}{weapon_statuses}, and \mintinline{c}{num_weapons}.
+    \end{itemize}
+  \end{columns}
 
 \end{frame}
 
-\begin{frame}{Structs}
+\begin{frame}[fragile,fragile]
+  \frametitle{Structs}
+  C defines two operators for dealing with structs. A member of a struct is
+  referred to with the \mintinline[escapeinside=||]{c}{|\strut|.} operator, as shown below:
+
+\bigskip
+
+\begin{minted}{c}
+Spaceship our_ship = ...
+printf("The name of our ship is %s", our_ship.name);
+\end{minted}
+\pause
+
+\bigskip
+
+However as you can see from the function declarations in
+\mintinline{text}{structs.c}, dealing with a pointer to a struct instead of
+structs themselves is quite common. To refer to a member of a struct from a
+pointer, use the \mintinline[escapeinside=||]{c}{|\strut|->} operator.
+
+\bigskip
+
+\begin{minted}{c}
+Spaceship* our_ship = ...
+printf("The name of our ship is %s", our_ship->name);
+\end{minted}
 
 \end{frame}
 
-\begin{frame}{Headers}
+\begin{frame}[fragile]
+  \frametitle{Structs}
+
+\begin{minted}[fontsize=\footnotesize]{c}
+typedef struct {
+  char* name;
+  int health;
+  int* weapon_statuses; // An array whose elements indicate the
+                        // value of each weapon.
+                        // A value >= 100 indicates the weapon is
+                        // ready to fire.
+  int num_weapons;
+} Spaceship;
+
+// YOUR TASK: Implement charge_weapons and attack_ship.
+void charge_weapons(Spaceship* ship);
+void attack_ship(Spaceship* from, Spaceship* to);
+\end{minted}
+
+  \bigskip
+
+  \begin{itemize}
+  \item Implement the two functions and test your program.
+  \item Note that to \mintinline{c}{weapon_statuses} is an array, so to access an
+    element you apply an index like so: \mintinline{c}{ship->weapon_statuses[0]}.
+  \end{itemize}
 
 \end{frame}
+
 \end{document}

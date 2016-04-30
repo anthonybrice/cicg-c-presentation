@@ -26,10 +26,6 @@ main() {
   printf("Your ship is overrun after %d generations! Abandon ship!\n", generation);
 }
 
-int get_population(int generation) {
-  return power(2, generation);
-}
-
 int power(int base, int exp) {
   int result = 1;
 
